@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
-import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
+import { WebPDFLoader } from "@langchain/community/document_loaders/web/pdf";
 
 export async function uploadFileAction(formData: FormData) {
   const { userId } = await auth();
@@ -34,7 +34,7 @@ export async function uploadFileAction(formData: FormData) {
 
   let text = "";
   if (file.type === "application/pdf") {
-    const loader = new PDFLoader(blob);
+    const loader = new WebPDFLoader(blob);
     const docs = await loader.load();
     text = docs.map((doc) => doc.pageContent).join("\n");
   } else {
