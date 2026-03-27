@@ -49,68 +49,62 @@
 }
 
 :root {
-  --font-sans: "SF Pro Text", "SF Pro Display", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  --font-display: "SF Pro Display", "SF Pro Text", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  --font-geist-mono: "SF Mono", "JetBrains Mono", "Roboto Mono", ui-monospace, "Cascadia Mono", Menlo, Monaco, Consolas, monospace;
+  --font-sans: "Inter", "SF Pro Text", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Inter", "SF Pro Display", sans-serif;
+  --font-geist-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
 
-  --background: oklch(0.975 0.004 248);
-  --foreground: oklch(0.255 0.016 257);
-  --card: oklch(1 0 0 / 82%);
-  --card-foreground: oklch(0.255 0.016 257);
-  --popover: oklch(1 0 0 / 95%);
-  --popover-foreground: oklch(0.255 0.016 257);
-  --primary: oklch(0.56 0.145 257);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.94 0.006 250);
-  --secondary-foreground: oklch(0.27 0.016 257);
-  --muted: oklch(0.95 0.005 250);
-  --muted-foreground: oklch(0.53 0.018 256);
-  --accent: oklch(0.94 0.01 252);
-  --accent-foreground: oklch(0.27 0.016 257);
-  --destructive: oklch(0.58 0.21 27);
-  --border: oklch(0.88 0.01 252);
-  --input: oklch(0.9 0.01 252);
-  --ring: oklch(0.56 0.145 257 / 42%);
-  --chart-1: oklch(0.76 0.09 251);
-  --chart-2: oklch(0.67 0.12 243);
-  --chart-3: oklch(0.59 0.09 230);
-  --chart-4: oklch(0.74 0.06 168);
-  --chart-5: oklch(0.64 0.12 38);
-  --radius: 1rem;
+  /* Claude-like Color Palette */
+  --background: oklch(0.98 0.005 60); /* Very light warm gray/beige */
+  --foreground: oklch(0.2 0.01 60);
 
-  --sidebar: oklch(0.985 0.004 250 / 92%);
-  --sidebar-foreground: oklch(0.26 0.016 257);
-  --sidebar-primary: oklch(0.56 0.145 257);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.95 0.007 252);
-  --sidebar-accent-foreground: oklch(0.26 0.016 257);
-  --sidebar-border: oklch(0.87 0.01 252 / 82%);
-  --sidebar-ring: oklch(0.56 0.145 257 / 42%);
-}
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.01 60);
 
-@keyframes float-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(0, -18px, 0) scale(1.03);
-  }
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.01 60);
+
+  --primary: oklch(0.45 0.05 45); /* Warm earthy primary */
+  --primary-foreground: oklch(0.98 0.005 60);
+
+  --secondary: oklch(0.92 0.01 60);
+  --secondary-foreground: oklch(0.25 0.01 60);
+
+  --muted: oklch(0.95 0.005 60);
+  --muted-foreground: oklch(0.45 0.01 60);
+
+  --accent: oklch(0.9 0.02 60);
+  --accent-foreground: oklch(0.2 0.01 60);
+
+  --destructive: oklch(0.55 0.15 25);
+  --border: oklch(0.9 0.01 60);
+  --input: oklch(0.9 0.01 60);
+  --ring: oklch(0.45 0.05 45 / 30%);
+
+  --radius: 0.75rem;
+
+  --sidebar: oklch(0.96 0.005 60);
+  --sidebar-foreground: oklch(0.3 0.01 60);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: oklch(0.92 0.01 60);
+  --sidebar-accent-foreground: oklch(0.2 0.01 60);
+  --sidebar-border: oklch(0.9 0.01 60);
+  --sidebar-ring: var(--ring);
 }
 
 @keyframes fade-up {
   0% {
     opacity: 0;
-    transform: translate3d(0, 16px, 0);
+    transform: translateY(10px);
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translateY(0);
   }
 }
 
 .animate-fade-up {
-  animation: fade-up 0.56s ease-out both;
+  animation: fade-up 0.4s ease-out both;
 }
 
 @layer base {
@@ -118,213 +112,37 @@
     @apply border-border outline-ring/50;
   }
 
-  html {
-    @apply font-sans;
-  }
-
   body {
     @apply bg-background text-foreground;
-    background-image:
-      radial-gradient(circle at 8% 9%, rgba(255, 255, 255, 0.95), transparent 42%),
-      radial-gradient(circle at 84% 12%, rgba(208, 226, 255, 0.56), transparent 38%),
-      linear-gradient(180deg, #f7f9fc 0%, #f2f4f8 100%);
   }
 }
 
 @layer components {
-  .app-shell {
-    @apply relative min-h-screen overflow-hidden;
+  .claude-container {
+    @apply mx-auto w-full max-w-3xl px-4;
   }
 
-  .app-backdrop {
-    @apply pointer-events-none absolute rounded-full blur-3xl;
-    animation: float-drift 17s ease-in-out infinite;
+  .message-user {
+    @apply flex flex-col items-end gap-2 py-4;
   }
 
-  .app-backdrop-left {
-    @apply -left-20 -top-20 h-96 w-96;
-    background: radial-gradient(circle, rgba(122, 162, 255, 0.24) 0%, rgba(122, 162, 255, 0) 70%);
+  .message-assistant {
+    @apply flex flex-col items-start gap-2 py-6;
   }
 
-  .app-backdrop-right {
-    @apply -right-24 bottom-[-7rem] h-[28rem] w-[28rem];
-    background: radial-gradient(circle, rgba(116, 192, 255, 0.2) 0%, rgba(116, 192, 255, 0) 70%);
-    animation-delay: 1.2s;
+  .bubble-user {
+    @apply rounded-2xl bg-secondary px-4 py-3 text-[15px] leading-relaxed text-foreground max-w-[85%];
   }
 
-  .app-grain {
-    @apply pointer-events-none absolute inset-0 opacity-[0.08];
-    background-image: radial-gradient(rgba(15, 23, 42, 0.55) 0.35px, transparent 0.35px);
-    background-size: 3px 3px;
+  .bubble-assistant {
+    @apply text-[16px] leading-7 text-foreground w-full;
   }
 
-  .apple-sidebar {
-    @apply z-20;
+  .input-container {
+    @apply sticky bottom-0 z-10 bg-background/80 pt-4 backdrop-blur-sm;
   }
 
-  .apple-sidebar [data-sidebar="sidebar"] {
-    @apply border border-white/70 bg-white/72 backdrop-blur-2xl;
-    box-shadow: 0 20px 48px rgba(15, 23, 42, 0.12);
-  }
-
-  .apple-sidebar-header {
-    @apply p-3;
-  }
-
-  .apple-brand-lockup {
-    @apply flex items-center gap-2.5 rounded-2xl border border-white/80 bg-white/80 px-2.5 py-2;
-  }
-
-  .apple-brand-mark {
-    @apply flex size-8 items-center justify-center rounded-xl bg-[linear-gradient(145deg,#6f9bff,#4a78ff)] text-white;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.38), 0 8px 20px rgba(63, 90, 176, 0.28);
-  }
-
-  .apple-brand-text {
-    @apply min-w-0;
-  }
-
-  .apple-brand-eyebrow {
-    @apply truncate text-[10px] font-medium tracking-[0.08em] uppercase text-zinc-500;
-  }
-
-  .apple-brand-title {
-    @apply truncate text-[13px] font-semibold tracking-tight text-zinc-800;
-  }
-
-  .gmail-sidebar-card {
-    @apply mt-2 rounded-xl border border-black/8 bg-white/74 px-3 py-2.5;
-  }
-
-  .gmail-sidebar-title {
-    @apply text-[11px] font-semibold tracking-[0.06em] uppercase text-zinc-500;
-  }
-
-  .gmail-sidebar-text {
-    @apply mt-1 text-sm font-medium text-zinc-800;
-  }
-
-  .gmail-sidebar-caption {
-    @apply mt-1.5 text-[12px] leading-relaxed text-zinc-500;
-  }
-
-  .runtime-chip {
-    @apply inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/84 px-2.5 py-1.5 text-[12px] font-medium text-zinc-700;
-  }
-
-  .apple-main {
-    @apply relative min-h-screen p-3 md:p-4;
-  }
-
-  .apple-topbar {
-    @apply mb-3 flex flex-wrap items-start justify-between gap-3 rounded-[26px] border border-white/75 bg-white/72 px-4 py-3 backdrop-blur-xl md:mb-4 md:px-5;
-    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1);
-  }
-
-  .apple-topbar-left {
-    @apply flex min-w-0 items-start gap-3;
-  }
-
-  .apple-topbar-right {
-    @apply flex flex-wrap items-center gap-2;
-  }
-
-  .apple-trigger {
-    @apply mt-0.5 shrink-0 border border-black/8 bg-white/70;
-  }
-
-  .apple-title {
-    @apply truncate font-heading text-[1.08rem] font-semibold tracking-tight text-zinc-900 md:text-[1.22rem];
-  }
-
-  .apple-subtitle {
-    @apply mt-0.5 text-[12px] leading-relaxed text-zinc-600 md:text-[13px];
-  }
-
-  .status-chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white/84 px-3 py-1 text-[12px] text-zinc-700;
-  }
-
-  .chat-stage {
-    @apply flex min-h-0 flex-1 flex-col overflow-hidden rounded-[28px] border border-white/75 bg-white/66 backdrop-blur-2xl;
-    box-shadow: 0 22px 64px rgba(15, 23, 42, 0.12);
-  }
-
-  .chat-scroll-frame {
-    @apply min-h-0 flex-1;
-  }
-
-  .chat-content {
-    @apply gap-6 px-4 py-5 md:px-6;
-  }
-
-  .empty-state {
-    @apply rounded-[24px] border border-black/6 bg-white/74;
-  }
-
-  .message-surface {
-    @apply shadow-[0_10px_30px_rgba(15,23,42,0.08)];
-  }
-
-  .assistant-bubble {
-    @apply rounded-[22px] border border-black/7 bg-white/90 px-4 py-3;
-  }
-
-  .user-bubble {
-    @apply rounded-[20px] bg-zinc-900 px-4 py-3 text-white;
-  }
-
-  .tool-surface {
-    @apply rounded-[18px] border border-black/8 bg-white/96 shadow-[0_16px_32px_rgba(15,23,42,0.1)];
-  }
-
-  .chat-composer-zone {
-    @apply border-t border-black/6 bg-white/52 px-3 py-3 md:px-5;
-  }
-
-  .error-banner {
-    @apply mb-3 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-[13px] text-red-700;
-  }
-
-  .prompt-shell {
-    @apply relative mx-auto w-full rounded-[24px] border border-black/10 bg-white/92 p-2 backdrop-blur;
-    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.14);
-  }
-
-  .prompt-textarea {
-    @apply min-h-[56px] border-none bg-transparent px-3 text-[15px] leading-6 focus-visible:ring-0;
-  }
-
-  .prompt-submit {
-    @apply absolute right-3 bottom-3 h-9 w-9 rounded-full;
-  }
-
-  .composer-meta {
-    @apply mt-3 flex flex-wrap items-center justify-between gap-2 px-1 text-[12px] text-zinc-500;
-  }
-
-  .gmail-dialog {
-    @apply rounded-2xl border border-white/80 bg-white/95;
-    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
-  }
-
-  .gmail-dialog-panel {
-    @apply rounded-xl border border-black/8 bg-zinc-50/90 p-3;
-  }
-
-  .gmail-dialog-row {
-    @apply inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-1 text-[12px] font-medium text-zinc-700;
-  }
-
-  .gmail-dialog-note {
-    @apply mt-3 text-[13px] leading-relaxed text-zinc-600;
-  }
-
-  .gmail-dialog-error {
-    @apply mt-2 text-[13px] font-medium text-red-600;
-  }
-
-  .gmail-dialog-footer {
-    @apply flex flex-col-reverse gap-2 sm:flex-row sm:justify-end;
+  .input-box {
+    @apply relative flex flex-col rounded-3xl border border-input bg-card shadow-sm transition-all focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/20;
   }
 }
